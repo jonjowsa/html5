@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .caixa {
+            width: 100px;
+            height: 100px;
+            background-color: chocolate;
+        }
+
+        .drop {
+            width: 200px;
+            height: 200px;
+            border: red 1px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Atributo Global do tipo Class (deu o nome de caixa) ou seja uma classe chamada de caixa
+         Atributo Global draggable: serve para arrastar e Soltar elementos dentro do html-->  
+    <div id='c1' class="caixa" draggable="true"></div>
+    <br>
+    <div id='c2' class="caixa" draggable="true"></div>
+    <br>
+
+    <!-- Atributo Global dropzone Soltar um elemento arrastado // copy: faz uma cópia // move: move o elemento -->
+    <div class="drop" dropzone="copy"></div>    <!-- <div class="drop" dropzone="move" ></div> -->
+
+    <script>
+    /* A declaração const cria uma variável cujo o valor é fixo, ou seja, uma constante somente leitura. Isso não significa que o valor é imutável, apenas que a variável constante não pode ser alterada ou retribuída. */
+    const caixas = document.querySelectorAll('.caixa');
+    // buscar o elemento ques esta sendo movimentado.
+    const dropZone = document.querySelector('[dropzone]');
+
+    // A API de drag and drop do javascript atualmente só permite texto. Não conseguimos armazerna o elemento que está sofrendo o evento, porém conseguimos guardar o ID do elemento, onde podemos identificar e recuperar o elemento.
+    //O método forEach() executa uma dada função em cada elemento de um array.
+    caixas.forEach(elementoCaixa => {
+     
+        //addEventListener é a maneira de registrar uma espera de evento como especificada no W3C DOM.
+        // Seus benefícios são os seguintes: Permite mais de um manipulador por evento.
+        elementoCaixa.addEventListener('dragstart', e => { // quando comecar a arrartar quero que faça alguma coisa.
+                
+                e.dataTransfer.setData('Text', e.target.id); //salvar a informação no datatranfer
+                console.log(e.target.id); //visualizar o id da caixa que estou arrastando.
+
+        });
+
+    });
+    // quando algum elemento estiver passando emcima da area de tranferencia.
+    dropZone.addEventListener('dragover', e => {
+        
+        e.preventDefault();
+
+    });
+    //adicionar evento soltar.
+    dropZone.addEventListener('drop', e => {
+        // console.log(e.dataTransfer.getData('Text'));
+
+        const id = e.dataTransfer.getData('Text');
+        const element = document.getElementById(id);
+
+        e.target.appendChild(element);
+    
+    });
+
+    </script>
+</body>
+
+</html>

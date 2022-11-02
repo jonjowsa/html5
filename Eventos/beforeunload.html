@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event: afterprint e beforeprint</title>
+</head>
+<!-- Antes de descarregar a página , ou seja sair da página.
+Geralmente utilizado pra evitar que a pessoa saia do site
+-->
+<body onbeforeunload="return debug(event)">
+    
+    <script>
+        function debug(e){
+             //alert('Evento: ' + e.type)
+            console.log('Evento: ' + e.type);
+            return 'Evento: ' + e.type;
+
+        }
+    </script>
+</body>
+</html>
